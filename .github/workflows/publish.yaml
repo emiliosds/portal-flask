@@ -1,0 +1,20 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    branches: [main]
+    
+jobs:
+  build:
+
+    runs-on: alpine:latest
+
+    steps:
+    - name: Get latest version
+      uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag portal-flask:$(date +%s)
